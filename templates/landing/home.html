@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block form %}
+    <div class="general-container">
+        <div class="container top-container">
+            <div class="row">
+                <div class="col-lg-10 col-lg-offset-2">
+
+                    {% for el in topics %}
+
+                        <div class="alert alert-info" role="alert">
+                            Тест по теме <a href="{% url 'topic:question' el.id 1%}"
+                                            class="alert-link">{{ el.topic }}</a>.
+                        </div>
+
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
