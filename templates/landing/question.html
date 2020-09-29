@@ -5,41 +5,59 @@
         <div class="container top-container">
             <div class="row">
                 <div class="col-lg-10 col-lg-offset-2">
+                {% if count_of_correct != -1 %}
+                    <div class="alert alert-info" role="alert">
+                            Правильных ответов {{ count_of_correct }} из {{ length }}. Процент: {{ percent_of_right|floatformat }} %
+                        </div>
+                    {% else %}
                     {% for el in question %}
                         <div class="alert alert-info" role="alert">
                             {{ el.question }}
                         </div>
                         <form action="" method="post">
-                        {% csrf_token %}
-                        {% for answer in answers %}
+                            {% csrf_token %}
+                            {% for answer in answers %}
 
-                            <div class="form-check">
-                            {% if is_one_choice %}
-                                <input class="form-check-input" type="radio" value="{{ answer.id }}"
-                                       id="defaultCheck1" name="answer">
-                                <label class="form-check-label" for="defaultCheck1">
-                                    {{ answer }}
-                                </label>
-                            {% else %}
-                                <input class="form-check-input" type="checkbox" value="{{ answer.id }}"
-                                       id="defaultCheck1" name="checkbox">
-                                <label class="form-check-label" for="defaultCheck1">
-                                    {{ answer }}
-                                </label>
-                            {% endif %}
-                            </div>
-                        {% endfor %}
-                        <div class="form-group row">
+                                <div class="form-check">
+                                    {% if is_one_choice %}
+                                        <input class="form-check-input" type="radio" value={{ answer.id }}
+                                                id="defaultCheck1" name="radio">
+                                        <label class="form-check-label" for="defaultCheck1">
+                                            {{ answer }}
+                                        </label>
+                                    {% else %}
+                                        <input class="form-check-input" type="checkbox" value={{ answer.id }}
+                                                id="defaultCheck1" name="checkbox">
+                                        <label class="form-check-label" for="defaultCheck1">
+                                            {{ answer }}
+                                        </label>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                            <div class="form-group row">
                                 <div class="col-sm-10">
-                                    <button type="submit" class="btn btn-primary orange-button">Отправить</button>
+                                    <button type="submit" class="btn btn-primary orange-button" name="_save">Отправить
+                                    </button>
                                 </div>
                             </div>
+                        {% if is_last %}
+                            <div class="form-group row">
+                                <div class="col-sm-10">
+                                    <button type="submit" class="btn btn-primary orange-button" name="_end">Отправить
+                                    </button>
+                                </div>
+                            </div>
+                        {% endif %}
                         </form>
                     {% endfor %}
 
+
+                {% endif %}
                 </div>
             </div>
-        {% include 'pagination.html' with page=question %}
+        {% if count_of_correct == -1 %}
+            {% include 'pagination.html' with page=question %}
+        {% endif %}
         </div>
 
     </div>

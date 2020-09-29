@@ -19,5 +19,5 @@ from topic import views
 
 app_name = 'topic'
 urlpatterns = [
-    path('<int:topic_id>/<int:question_id>', views.topic, name='question'),
+    path('<int:topic_id>/', views.question, name='topic'),
 ]

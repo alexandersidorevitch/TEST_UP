@@ -9,7 +9,7 @@
                     {% for el in topics %}
 
                         <div class="alert alert-info" role="alert">
-                            Тест по теме <a href="{% url 'topic:question' el.id 1%}"
+                            Тест по теме <a href="{% url 'topic:topic' el.id%}"
                                             class="alert-link">{{ el.topic }}</a>.
                         </div>
 

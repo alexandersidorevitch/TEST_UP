@@ -9,6 +9,7 @@ footer {
 #justpushtobottom {
     height: 82vh;
 }
+
 ul {
     margin: 10px;
 }
@@ -16,9 +17,8 @@ ul {
 body > .container {
     padding-top: 60px;
 }
-.center a {
-    margin-top: 10px;
-}
+
+
 /*i {*/
 /*    padding-top: 10px;*/
 /*}*/
@@ -116,4 +116,5 @@ a.socialIcon:hover, .socialHoverClass {
 
 .center a {
     background-color: #fff;
+    margin: 10px 0;
 }
