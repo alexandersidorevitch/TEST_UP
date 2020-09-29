@@ -21,8 +21,14 @@ def topic(request, topic_id, question_id):
     if not len(questions):
         raise Http404()
     paginator = Paginator(questions, 1)  # По 3 статьи на каждой странице.
-
     page = request.GET.get('page')
+
+    if request.POST:
+        print(request.POST.getlist('checkbox', None))
+        try:
+            page = str(int(page) + 1)
+        except ValueError:
+            pass
     try:
         question = paginator.page(page)
     except PageNotAnInteger:

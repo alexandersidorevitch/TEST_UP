@@ -17,3 +17,7 @@ form > * {
 .general-container {
     margin-bottom: 3%;
 }
+.pagination {
+    margin: 40px 0;
+    font-weight: bold;
+}

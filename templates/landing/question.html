@@ -9,6 +9,8 @@
                         <div class="alert alert-info" role="alert">
                             {{ el.question }}
                         </div>
+                        <form action="" method="post">
+                        {% csrf_token %}
                         {% for answer in answers %}
 
                             <div class="form-check">
@@ -20,17 +22,25 @@
                                 </label>
                             {% else %}
                                 <input class="form-check-input" type="checkbox" value="{{ answer.id }}"
-                                       id="defaultCheck1" >
+                                       id="defaultCheck1" name="checkbox">
                                 <label class="form-check-label" for="defaultCheck1">
                                     {{ answer }}
                                 </label>
                             {% endif %}
                             </div>
                         {% endfor %}
+                        <div class="form-group row">
+                                <div class="col-sm-10">
+                                    <button type="submit" class="btn btn-primary orange-button">Отправить</button>
+                                </div>
+                            </div>
+                        </form>
                     {% endfor %}
+
                 </div>
             </div>
+        {% include 'pagination.html' with page=question %}
         </div>
+
     </div>
-    {% include 'pagination.html' with page=question %}
 {% endblock %}
