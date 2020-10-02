@@ -13,9 +13,10 @@
                         </div>
                     {% else %}
                         {% for el in question %}
-                            <div class="alert alert-info" role="alert">
+                            <div class="alert alert-info" role="alert" aria-label="{{ el.hint }}" data-balloon-pos="left">
                                 {{ el.question }}
                             </div>
+{#                            <div id="tooltip"></div>#}
                             <form action="" method="post">
                                 {% csrf_token %}
                                 {% if  el.type.type == 'TextField' %}
@@ -33,7 +34,7 @@
                                 {% endif %}
                                 <div class="form-group row">
                                     <div class="col-sm-10">
-                                        {% if is_last %}
+                                        {% if prev_page == length %}
                                             <button type="submit" class="btn btn-primary orange-button" name="_end">
                                                 Закончить
                                             </button>

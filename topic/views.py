@@ -76,18 +76,14 @@ def question(request, topic_id):
     paginator = Paginator(questions, 1)  # По 1 вопросу на каждой странице.
     try:
         prev_page = int(page) - 1
-    except:
+    except ValueError:
         prev_page = 0
-
+    except TypeError:
+        prev_page = 0
     if prev_page == 0 and not request.POST:
         start_time = time.time()
     if page is None:
         is_correct_answers = [None for _ in questions]
-
-    if prev_page + 1 == length:
-        is_last = True
-    else:
-        is_last = False
 
     count_of_correct = -1
 
@@ -103,7 +99,7 @@ def question(request, topic_id):
             re_direct = True
             mark = ceil(count_of_correct / length * 10)
             return render(request, 'landing/question.html',
-                          {'is_last': is_last, 'length': length,
+                          {'prev_page': prev_page + 1, 'length': length,
                            'mark': mark, 'passage_of_time': passage_of_time, 'count_of_correct': count_of_correct})
 
     try:
@@ -118,4 +114,5 @@ def question(request, topic_id):
     answers = Answers.objects.filter(question=question[0]).order_by('?')
 
     return render(request, 'landing/question.html',
-                  {'question': question, 'answers': answers, 'count_of_correct': count_of_correct, 'is_last': is_last})
+                  {'question': question, 'answers': answers, 'count_of_correct': count_of_correct,
+                   'prev_page': prev_page + 1, 'length': length, })
