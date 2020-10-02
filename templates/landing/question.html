@@ -5,60 +5,53 @@
         <div class="container top-container">
             <div class="row">
                 <div class="col-lg-10 col-lg-offset-2">
-                {% if count_of_correct != -1 %}
-                    <div class="alert alert-info" role="alert">
-                            Правильных ответов {{ count_of_correct }} из {{ length }}. Процент: {{ percent_of_right|floatformat }} %
+                    {% if count_of_correct != -1 %}
+                        <div class="alert alert-info" role="alert">
+                            Правильных ответов {{ count_of_correct }} из {{ length }}.
+                            Отметка: {{ mark }} баллов
+                            Время прохождения {{ passage_of_time }}
                         </div>
                     {% else %}
-                    {% for el in question %}
-                        <div class="alert alert-info" role="alert">
-                            {{ el.question }}
-                        </div>
-                        <form action="" method="post">
-                            {% csrf_token %}
-                            {% for answer in answers %}
-
-                                <div class="form-check">
-                                    {% if is_one_choice %}
-                                        <input class="form-check-input" type="radio" value={{ answer.id }}
-                                                id="defaultCheck1" name="radio">
-                                        <label class="form-check-label" for="defaultCheck1">
-                                            {{ answer }}
-                                        </label>
-                                    {% else %}
-                                        <input class="form-check-input" type="checkbox" value={{ answer.id }}
-                                                id="defaultCheck1" name="checkbox">
-                                        <label class="form-check-label" for="defaultCheck1">
-                                            {{ answer }}
-                                        </label>
-                                    {% endif %}
-                                </div>
-                            {% endfor %}
-                            <div class="form-group row">
-                                <div class="col-sm-10">
-                                    <button type="submit" class="btn btn-primary orange-button" name="_save">Отправить
-                                    </button>
-                                </div>
+                        {% for el in question %}
+                            <div class="alert alert-info" role="alert">
+                                {{ el.question }}
                             </div>
-                        {% if is_last %}
-                            <div class="form-group row">
-                                <div class="col-sm-10">
-                                    <button type="submit" class="btn btn-primary orange-button" name="_end">Отправить
-                                    </button>
+                            <form action="" method="post">
+                                {% csrf_token %}
+                                {% if  el.type.type == 'TextField' %}
+                                    {% include 'componets/text_filed.html' %}
+                                {% else %}
+                                    {% for answer in answers %}
+                                        <div class="form-check">
+                                            {% if el.type.type == 'OneChoice' %}
+                                                {% include 'componets/one_choice.html' %}
+                                            {% elif el.type.type == 'MultiplyChoices' %}
+                                                {% include 'componets/multiply_choices.html' %}
+                                            {% endif %}
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                                <div class="form-group row">
+                                    <div class="col-sm-10">
+                                        {% if is_last %}
+                                            <button type="submit" class="btn btn-primary orange-button" name="_end">
+                                                Закончить
+                                            </button>
+                                        {% else %}
+                                            <button type="submit" class="btn btn-primary orange-button" name="_save">
+                                                Сохранить
+                                            </button>
+                                        {% endif %}
+                                    </div>
                                 </div>
-                            </div>
-                        {% endif %}
-                        </form>
-                    {% endfor %}
-
-
-                {% endif %}
+                            </form>
+                        {% endfor %}
+                    {% endif %}
                 </div>
             </div>
-        {% if count_of_correct == -1 %}
-            {% include 'pagination.html' with page=question %}
-        {% endif %}
+            {% if count_of_correct == -1 %}
+                {% include 'pagination.html' with page=question %}
+            {% endif %}
         </div>
-
     </div>
 {% endblock %}

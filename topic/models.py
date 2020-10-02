@@ -17,6 +17,7 @@ class Topics(models.Model):
     def get_absolute_url(self):
         return reverse('topic:question', args=[self.id])
 
+
 class Types(models.Model):
     type = models.CharField(max_length=256, verbose_name='Тип')
 
@@ -62,11 +63,16 @@ class Answers(models.Model):
         verbose_name_plural = 'ответы'
 
     def save(self, *args, **kwargs):
-        if self.is_right and self.question.type.type == 'OneChoice':
+        if (self.is_right and self.question.type.type == 'OneChoice') or (
+                not self.is_right and self.question.type.type == 'TextField'):
             try:
-                answer = Answers.objects.get(question=self.question, is_right=True)
-                answer.is_right = False
-                answer.save()
+
+                if self.question.type.type == 'OneChoice':
+                    answer = Answers.objects.get(question=self.question, is_right=True)
+                    answer.is_right = False
+                    answer.save()
+                else:
+                    self.is_right = True
             except models.ObjectDoesNotExist:
                 pass
 

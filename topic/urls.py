@@ -20,4 +20,5 @@ from topic import views
 app_name = 'topic'
 urlpatterns = [
     path('<int:topic_id>/', views.question, name='topic'),
+
 ]
