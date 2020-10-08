@@ -7,7 +7,7 @@
     <h2>Вход</h2>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_table }}
+        {{ form.as_p }}
         <button type="submit" class="btn btn-primary orange-button">
             Войти
         </button>
