@@ -101,8 +101,8 @@ def question(request, topic_id):
             is_correct_answers = save(request, is_correct_answers, prev_page, length)
             count_of_correct = end(request, is_correct_answers, questions)
             passage_of_time = time.strftime('%M:%S', time.localtime(time.time() - start_time))
-            # TestResult(user=user, topic_id=topic_id, percent_of_correct=round(count_of_correct / length, 1),
-            #            time_for_ending=passage_of_time).save()
+            TestResult(user=user, topic_id=topic_id, percent_of_correct=round(count_of_correct / length * 100, 1),
+                       time_for_ending=passage_of_time).save()
             start_time = 0
             re_direct = True
             mark = ceil(count_of_correct / length * 10)
