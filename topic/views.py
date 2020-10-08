@@ -101,11 +101,12 @@ def question(request, topic_id):
             is_correct_answers = save(request, is_correct_answers, prev_page, length)
             count_of_correct = end(request, is_correct_answers, questions)
             passage_of_time = time.strftime('%M:%S', time.localtime(time.time() - start_time))
-            TestResult(user=user, topic_id=topic_id, percent_of_correct=round(count_of_correct / length * 100, 1),
-                       time_for_ending=passage_of_time).save()
             start_time = 0
             re_direct = True
             mark = ceil(count_of_correct / length * 10)
+            TestResult(user=user, topic_id=topic_id, percent_of_correct=round(count_of_correct / length * 100, 1),
+                       time_for_ending=passage_of_time, mark=mark, last_name=user.last_name.capitalize(),
+                       first_name=user.first_name.capitalize()).save()
             return render(request, 'landing/question.html',
                           {'prev_page': prev_page + 1, 'length': length,
                            'mark': mark, 'passage_of_time': passage_of_time, 'count_of_correct': count_of_correct})

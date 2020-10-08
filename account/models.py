@@ -7,9 +7,12 @@ from topic.models import Topics
 
 class TestResult(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
+
+    first_name = models.CharField(max_length=128, verbose_name='Имя')
+    last_name = models.CharField(max_length=128, verbose_name='Фамилия')
     topic = models.ForeignKey(Topics, on_delete=models.CASCADE, verbose_name='Тема')
     percent_of_correct = models.DecimalField(verbose_name='Процент правильных ответов', decimal_places=1, max_digits=5)
-    # mark =
+    mark = models.IntegerField(verbose_name='Отметка', default=0)
     time_for_ending = models.TimeField(verbose_name='Время прохождения', default='00:00')
     data = models.DateTimeField(verbose_name='Дата прохождения теста и время прохождения теста', auto_now=True)
     checked = models.BooleanField(verbose_name='Занесенно в журнал', default=False)

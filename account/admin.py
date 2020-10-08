@@ -1,4 +1,5 @@
 from django.contrib import admin
+from rangefilter.filter import DateRangeFilter
 
 # Register your models here.
 from account.models import TestResult
@@ -22,7 +23,7 @@ class TestResultAdmin(admin.ModelAdmin):
     list_display = [
         field.name for field in TestResult._meta.fields
     ]
-    list_filter = ('user', 'topic', 'checked')
+    list_filter = (('data', DateRangeFilter), 'user', 'topic', 'checked',)
     date_hierarchy = 'data'
     search_fields = ['user__username']
     actions = [to_note_the_results, cancel_to_note_the_results]
