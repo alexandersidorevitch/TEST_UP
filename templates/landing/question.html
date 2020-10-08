@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block title %}
+    {{ question.object_list|first}}
+{% endblock title %}
 {% block form %}
-    <div class="general-container">
-        <div class="container top-container">
+
             <div class="row">
                 <div class="col-lg-10 col-lg-offset-2">
                     {% if count_of_correct != -1 %}
@@ -53,6 +55,4 @@
             {% if count_of_correct == -1 %}
                 {% include 'pagination.html' with page=question %}
             {% endif %}
-        </div>
-    </div>
 {% endblock %}

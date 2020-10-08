@@ -1,11 +1,14 @@
 import time
 from math import ceil
 
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.shortcuts import render, reverse
 
+from account.models import TestResult
 from topic.models import Topics, Questions, Answers
 
 # Create your views here.
@@ -59,6 +62,7 @@ def end(request, data, questions):
 start_time = 0
 
 
+@login_required
 def question(request, topic_id):
     passage_of_time = 0
     global is_correct_answers, re_direct, start_time
@@ -92,9 +96,13 @@ def question(request, topic_id):
             save(request, is_correct_answers, prev_page, length)
             return redirect(f'/topic/{topic_id}/?page={prev_page + 2}')
         elif '_end' in request.POST:
+            user = User.objects.get(username=request.user)
+
             is_correct_answers = save(request, is_correct_answers, prev_page, length)
             count_of_correct = end(request, is_correct_answers, questions)
             passage_of_time = time.strftime('%M:%S', time.localtime(time.time() - start_time))
+            # TestResult(user=user, topic_id=topic_id, percent_of_correct=round(count_of_correct / length, 1),
+            #            time_for_ending=passage_of_time).save()
             start_time = 0
             re_direct = True
             mark = ceil(count_of_correct / length * 10)

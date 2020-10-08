@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block title %}
+    Домашняя страница
+{% endblock title %}
 {% block form %}
-    <div class="general-container">
-        <div class="container top-container">
             <div class="row">
                 <div class="col-lg-10 col-lg-offset-2">
 
@@ -16,6 +17,4 @@
                     {% endfor %}
                 </div>
             </div>
-        </div>
-    </div>
 {% endblock %}

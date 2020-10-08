@@ -35,7 +35,7 @@ class Questions(models.Model):
     question = models.TextField(verbose_name='Вопрос', blank=True, null=True, default=None)
     type = models.ForeignKey(Types, on_delete=models.CASCADE, blank=True, null=True, default=None,
                              verbose_name='Тип вопроса', )
-    hint = models.CharField(max_length=256, verbose_name='Подсказка')
+    hint = models.CharField(max_length=32, verbose_name='Подсказка')
     created = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
 
