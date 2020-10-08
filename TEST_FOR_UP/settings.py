@@ -28,7 +28,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '%nnws5h+1qx2^bt_7r+k&a#&in3pkd
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 # DEBUG = bool(os.environ.get('DJANGO_DEBUG', True))
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -125,7 +125,7 @@ STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "static", "media")
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 # Heroku: Update database configuration from $DATABASE_URL.
 import dj_database_url
@@ -136,7 +136,8 @@ DATABASES['default'].update(db_from_env)
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-# COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', False)
+COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', False)
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 # WHITENOISE_USE_FINDERS = True
+DEBUG_PROPAGATE_EXCEPTIONS = True
 django_heroku.settings(locals())
