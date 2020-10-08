@@ -11,7 +11,9 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
 from pathlib import Path
+
 import django_heroku
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -130,14 +132,15 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 # Heroku: Update database configuration from $DATABASE_URL.
 import dj_database_url
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
 COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', False)
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
-# WHITENOISE_USE_FINDERS = True
 DEBUG_PROPAGATE_EXCEPTIONS = True
 django_heroku.settings(locals())
