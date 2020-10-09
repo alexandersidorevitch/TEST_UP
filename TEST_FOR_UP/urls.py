@@ -27,5 +27,5 @@ urlpatterns = [
     path('topic/', include('topic.urls')),
 ]
 urlpatterns += path('',
-        ('static/<path>$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
+        ('static/', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
     )
