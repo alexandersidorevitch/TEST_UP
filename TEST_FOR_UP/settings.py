@@ -125,11 +125,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# MEDIA_URL = '/media/'
-# MEDIA_ROOT = os.path.join(BASE_DIR, "staticfiles", "media")
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "staticfiles", "media")
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'staticfiles'),)
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 # Heroku: Update database configuration from $DATABASE_URL.
 import dj_database_url
 
