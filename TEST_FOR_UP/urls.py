@@ -16,8 +16,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from TEST_FOR_UP import settings
-
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
     path('home/', include('home.urls')),
@@ -26,6 +24,3 @@ urlpatterns = [
     path('', include('home.urls')),
     path('topic/', include('topic.urls')),
 ]
-urlpatterns += path('',
-        ('static/', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
-    )
