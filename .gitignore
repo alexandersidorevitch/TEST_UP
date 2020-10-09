@@ -126,5 +126,6 @@ venv.bak/
 dmypy.json
 
 # Django
-TEST_FOR_UP/settings.py
+#TEST_FOR_UP/settings.py
 
+TEST_FOR_UP/settings_local.py
