@@ -13,7 +13,7 @@ class TopicAdmin(admin.ModelAdmin):
 
 class AnswersInline(admin.TabularInline):
     model = Answers
-    extra = 0
+    extra = 5
 
 
 @admin.register(Types)
